@@ -19,6 +19,7 @@ package baritone.command.defaults;
 
 import baritone.api.IBaritone;
 import baritone.api.command.ICommand;
+import baritone.process.Phase1GoalProcess;
 
 import java.util.*;
 
@@ -27,7 +28,7 @@ public final class DefaultCommands {
     private DefaultCommands() {
     }
 
-    public static List<ICommand> createAll(IBaritone baritone) {
+    public static List<ICommand> createAll(IBaritone baritone, Phase1GoalProcess phase1GoalProcess) {
         Objects.requireNonNull(baritone);
         List<ICommand> commands = new ArrayList<>(Arrays.asList(
                 new HelpCommand(baritone),
@@ -68,7 +69,8 @@ public final class DefaultCommands {
                 new CommandAlias(baritone, "sethome", "Sets your home waypoint", "waypoints save home"),
                 new CommandAlias(baritone, "home", "Path to your home waypoint", "waypoints goto home"),
                 new SelCommand(baritone),
-                new ElytraCommand(baritone)
+                new ElytraCommand(baritone),
+                new Phase1Command(baritone, phase1GoalProcess)
         ));
         ExecutionControlCommands prc = new ExecutionControlCommands(baritone);
         commands.add(prc.pauseCommand);

@@ -12,26 +12,14 @@ This repository now includes a starter **multi-step goal framework** in `bariton
 - `MineStoneGoal` - mines stone/cobblestone until a target quantity is reached.
 - `Phase1GoalPlans` - example `starterPlan()` (`wood -> crafting table -> stone`).
 
-## How to wire this in Baritone
+## How this is now wired in Baritone
 
-A minimal integration path is:
+This is integrated through a real process + command:
 
-1. Instantiate a `SequentialGoalPlan` from your command/process entrypoint.
-2. Call `tick()` every game tick while your process is active.
-3. Stop when `isCompleted()` returns true.
-
-Example (pseudo-code):
-
-```java
-GoalExecutionContext context = new GoalExecutionContext(baritone);
-SequentialGoalPlan plan = new SequentialGoalPlan(context, Phase1GoalPlans.starterPlan());
-
-// each tick
-plan.tick();
-if (plan.isCompleted()) {
-    // done
-}
-```
+- `Phase1GoalProcess` drives `SequentialGoalPlan` each tick and is registered in `Baritone`.
+- `#phase1 start` starts the starter chain.
+- `#phase1 status` shows the current active phase goal.
+- `#phase1 stop` cancels phase execution.
 
 ## Notes
 
